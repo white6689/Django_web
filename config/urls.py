@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import board.views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('board/', board.views.home),
+    path('board/getPost', board.views.create_basic),
+    path('board/getPostForm', board.views.create_form),
+
 ]

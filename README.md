@@ -1,3 +1,8 @@
 # Django_web
 web project using django
-# About
+# Ignore list
+ - config/settings.py
+ - static
+ - Kompleet
+ - venv
+

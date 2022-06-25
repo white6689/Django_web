@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create_basic</title>
+</head>
+<body>
+<form method="post" action="board/getPost">
+    {% csrf_token %}
+  <input type="text" title="타이틀" name="t_title">
+  <input type="text" title="내용" name="t_contents">
+  <button>제출</button>
+</form>
+</body>
+</html>
