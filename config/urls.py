@@ -26,4 +26,5 @@ urlpatterns = [
     path('board/readOne/<int:bid>', board.views.readOne),
     path('board/read', board.views.read),
     path('board/update/<int:bid>', board.views.update),
+    path('board/delete/<int:bid>', board.views.delete)
 ]

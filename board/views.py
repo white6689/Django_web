@@ -53,4 +53,7 @@ def update(request, bid):
             post.save()
             return redirect('/board/readOne/'+str(post.id))
 
-
+def delete(request, bid):
+    post=Post.objects.get(id=bid)
+    post.delete()
+    return redirect('/board/read')
