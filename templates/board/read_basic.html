@@ -6,7 +6,7 @@
 </head>
 <body>
     {% for i in posts %}
-    {{ i.title }}|{{ i.contents }}|{{ i.creat_date }}<br/>
+    <a href="readOne/{{ i.id }}">{{ i.title }}</a>|{{ i.contents }}|{{ i.creat_date }}<br/>
     {% endfor %}
 </body>
 </html>

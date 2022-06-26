@@ -25,4 +25,5 @@ urlpatterns = [
     path('board/getPostForm', board.views.create_form),
     path('board/readOne/<int:bid>', board.views.readOne),
     path('board/read', board.views.read),
+    path('board/update/<int:bid>', board.views.update),
 ]

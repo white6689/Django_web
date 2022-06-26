@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from board.forms import PostForm
@@ -37,5 +37,20 @@ def readOne(request, bid):
 def read(request):
     posts=Post.objects.all().order_by('-id')
     return render(request, 'board/read_basic.html', {"posts":posts})
+
+# update
+def update(request, bid):
+    post=Post.objects.get(id=bid)
+    if request.method=="GET":
+        postForm=PostForm(instance=post)
+        return render(request, 'board/create_form.html', {"postForm":postForm})
+    elif request.method=="POST":
+        postForm=PostForm(request.POST, instance=post)
+        if postForm.is_valid():
+            post=postForm.save(commit=False)
+            post.title=postForm.cleaned_data['title']
+            post.contents=postForm.cleaned_data['contents']
+            post.save()
+            return redirect('/board/readOne/'+str(post.id))
 
 
