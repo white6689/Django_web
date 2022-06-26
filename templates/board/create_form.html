@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>create_form</title>
 </head>
 <body>
-
+<form method="post">
+    {% csrf_token %}
+    {{ postForm }}
+    <button>제출</button>
+</form>
 </body>
 </html>
