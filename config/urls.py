@@ -17,14 +17,20 @@ from django.contrib import admin
 from django.urls import path
 
 import board.views
+import user.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('board/', board.views.home),
-    path('board/getPost', board.views.create_basic),
-    path('board/getPostForm', board.views.create_form),
-    path('board/readOne/<int:bid>', board.views.readOne),
-    path('board/read', board.views.read),
-    path('board/update/<int:bid>', board.views.update),
-    path('board/delete/<int:bid>', board.views.delete)
+    # board
+    path('board/', board.views.home), # 게시글 기본 페이지
+    path('board/getPost', board.views.create_basic), # 게시글 작성 "제출"/POST
+    path('board/getPostForm', board.views.create_form), # 게시글 작성, ModelForm 이용
+    path('board/readOne/<int:bid>', board.views.readOne), # 게시글 한개 보기
+    path('board/read', board.views.read), # 게시글 다 보기
+    path('board/update/<int:bid>', board.views.update), # 게시글 수정
+    path('board/delete/<int:bid>', board.views.delete), # 게시글 삭제
+    # user
+    path('user/signup', user.views.signup), # 회원가입
+    path('user/login', user.views.login), # 로그인
+    path('user/logout', user.views.logout), # 로그아웃
 ]

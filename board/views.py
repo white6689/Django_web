@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -18,6 +19,7 @@ def create_basic(request):
     post.save()
     return HttpResponse("성공")
 
+@login_required(login_url='/user/login')
 def create_form(request):
     if request.method=="GET":
         postForm=PostForm()
@@ -26,6 +28,7 @@ def create_form(request):
         postForm=PostForm(request.POST)
         if postForm.is_valid():
             post=postForm.save(commit=False)
+            post.writer=request.user
             post.save()
             return HttpResponse("Form 성공")
 
@@ -39,9 +42,12 @@ def read(request):
     return render(request, 'board/read_basic.html', {"posts":posts})
 
 # update
+@login_required(login_url='/user/login')
 def update(request, bid):
     post=Post.objects.get(id=bid)
     if request.method=="GET":
+        if request.user!=post.writer:
+            return HttpResponse("사용자가 다릅니다.")
         postForm=PostForm(instance=post)
         return render(request, 'board/create_form.html', {"postForm":postForm})
     elif request.method=="POST":
@@ -53,7 +59,13 @@ def update(request, bid):
             post.save()
             return redirect('/board/readOne/'+str(post.id))
 
+@login_required(login_url='/user/login')
 def delete(request, bid):
+    post=Post.objects.get(id=bid)
+    if request.user != post.writer:
+        return HttpResponse("사용자가 다릅니다.")
     post=Post.objects.get(id=bid)
     post.delete()
     return redirect('/board/read')
+
+
