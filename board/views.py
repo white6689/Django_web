@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from board.forms import PostForm
 from board.models import Post
+from reply.forms import ReplyForm
 
 
 def home(request):
@@ -34,8 +35,14 @@ def create_form(request):
 
 # read
 def readOne(request, bid):
-    post=Post.objects.get(Q(id=bid))
-    return render(request, 'board/readone_basic.html', {"post":post})
+    # 댓글들도 같이 가져와야해서, prefetch를 쓴다.
+    try:
+        post=Post.objects.prefetch_related('reply_set').get(Q(id=bid))
+    except Post.DoesNotExist:
+        post = None
+    # post=Post.objects.get(Q(id=bid))
+    replyForm = ReplyForm()
+    return render(request, 'board/readone_basic.html', {"post":post, "replyForm":replyForm})
 
 def read(request):
     posts=Post.objects.all().order_by('-id')

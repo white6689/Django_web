@@ -9,5 +9,15 @@
     <div>{{ post.contents }}</div>
     <div>{{ post.creat_date }}</div>
     <div>{{ post.writer }}</div>
+    <div><span>댓글 목록</span>
+        <form method="post" action="/reply/create/{{ post.id }}">
+            {% csrf_token %}
+            {{ replyForm }}}
+            <button>댓글 작성</button>
+        </form>
+    </div>
+    {% for i in post.reply_set.all %}
+        <div>{{ i.contents }} | {{ i.writer }}</div>
+    {% endfor %}
 </body>
 </html>

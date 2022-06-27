@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 import board.views
+import reply.views
 import user.views
 
 urlpatterns = [
@@ -33,4 +34,7 @@ urlpatterns = [
     path('user/signup', user.views.signup), # 회원가입
     path('user/login', user.views.login), # 로그인
     path('user/logout', user.views.logout), # 로그아웃
+    # reply
+    path('reply/delete/<int:bid>', reply.views.delete),
+    path('reply/update/<int:bid>', reply.views.update)
 ]
